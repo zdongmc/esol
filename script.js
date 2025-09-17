@@ -1,10 +1,32 @@
 // Google Translate Integration
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-    }, 'google_translate_element');
+function loadGoogleTranslate() {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.onerror = function() {
+        console.error('Failed to load Google Translate script');
+        document.getElementById('google_translate_element').innerHTML = '<p style="font-size: 12px; color: #666;">Translation service unavailable</p>';
+    };
+    document.head.appendChild(script);
 }
+
+function googleTranslateElementInit() {
+    try {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,es,fr,pt,ar,zh-CN,zh-TW,ko,vi,ru,de,it,ja,hi,tl,th,sw',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            gaTrack: false,
+            gaId: null
+        }, 'google_translate_element');
+    } catch (error) {
+        console.error('Google Translate initialization error:', error);
+        document.getElementById('google_translate_element').innerHTML = '<p style="font-size: 12px; color: #666;">Translation service temporarily unavailable</p>';
+    }
+}
+
+// Load Google Translate when page loads
+window.addEventListener('load', loadGoogleTranslate);
 
 // Form handling and validation
 document.addEventListener('DOMContentLoaded', function() {
