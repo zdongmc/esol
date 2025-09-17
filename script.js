@@ -2,10 +2,8 @@
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
-        includedLanguages: 'en,es,fr,pt,ar,zh-cn,zh-tw,ko,vi,ru,de,it,ja,hi,tl',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false,
-        multilanguagePage: true
+        includedLanguages: 'en,es,fr,pt,ar,zh,ko,vi,ru,de,it,ja,hi,tl',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
 }
 
