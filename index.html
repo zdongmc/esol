@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDENT REGISTRATION FORM</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="translate-section">
+                <label for="google_translate_element">Select Language:</label>
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="logo-section">
+                <img src="ESOL_logo_F.jpg" alt="ESOL Cedarbrook Community Church Logo" class="logo">
+            </div>
+            <h1>STUDENT REGISTRATION FORM</h1>
+        </header>
+
+        <form id="esolForm" class="registration-form">
+            <div class="form-group">
+                <label for="todaysDate">Today's Date:</label>
+                <input type="date" id="todaysDate" name="todaysDate" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <fieldset>
+                    <legend>Gender:</legend>
+                    <div class="radio-group">
+                        <input type="radio" id="male" name="gender" value="Male" required>
+                        <label for="male">Male</label>
+                        
+                        <input type="radio" id="female" name="gender" value="Female" required>
+                        <label for="female">Female</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="form-group">
+                <label for="nativeLanguage">Native Language:</label>
+                <input type="text" id="nativeLanguage" name="nativeLanguage" required>
+            </div>
+
+            <div class="form-group">
+                <label for="countryOfOrigin">Country of Origin:</label>
+                <input type="text" id="countryOfOrigin" name="countryOfOrigin" required>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="zipCode">Zip Code:</label>
+                    <input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}(-[0-9]{4})?" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="county">County:</label>
+                <input type="text" id="county" name="county" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telephone">Telephone:</label>
+                <input type="tel" id="telephone" name="telephone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birthday">Birthday (mm/dd/yyyy):</label>
+                <input type="date" id="birthday" name="birthday" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emergencyContactName">Emergency Contact Name:</label>
+                <input type="text" id="emergencyContactName" name="emergencyContactName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="emergencyContactPhone">Emergency Contact Telephone:</label>
+                <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required>
+            </div>
+
+            <div class="form-group">
+                <fieldset>
+                    <legend>Do you attend church?</legend>
+                    <div class="radio-group">
+                        <input type="radio" id="churchYes" name="attendsChurch" value="Yes" required>
+                        <label for="churchYes">Yes</label>
+                        
+                        <input type="radio" id="churchNo" name="attendsChurch" value="No" required>
+                        <label for="churchNo">No</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="form-group">
+                <label for="churchName">Which church do you attend? (optional)</label>
+                <input type="text" id="churchName" name="churchName">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Submit Registration</button>
+            </div>
+        </form>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+            <h3>Registration Submitted Successfully!</h3>
+            <p>Thank you for registering.</p>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <h3>Error Submitting Registration</h3>
+            <p>Please try again or contact support.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
