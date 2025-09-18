@@ -163,10 +163,78 @@ function addRegistrationDataToSheet(sheet, data) {
 }
 
 function doGet(e) {
-  // Handle GET requests (for testing)
-  return ContentService
-    .createTextOutput('ESOL Registration Form Google Sheets API is working!')
-    .setMimeType(ContentService.MimeType.TEXT);
+  try {
+    const action = e.parameter.action;
+    
+    if (action === 'getStudents') {
+      return getRegisteredStudents();
+    } else {
+      // Handle default GET requests (for testing)
+      return ContentService
+        .createTextOutput('ESOL Registration Form Google Sheets API is working!')
+        .setMimeType(ContentService.MimeType.TEXT);
+    }
+  } catch (error) {
+    console.error('Error in doGet:', error);
+    return ContentService
+      .createTextOutput(JSON.stringify({success: false, error: error.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function getRegisteredStudents() {
+  try {
+    // Get the registration sheet (first sheet)
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheets()[0]; // First sheet for registrations
+    
+    // Get all data from the sheet
+    const lastRow = sheet.getLastRow();
+    
+    if (lastRow <= 1) {
+      // No data (only headers or empty sheet)
+      return ContentService
+        .createTextOutput(JSON.stringify({success: true, students: []}))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // Get data starting from row 2 (skip headers)
+    const data = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+    
+    // Convert data to student objects
+    const students = data.map(row => {
+      return {
+        submissionDate: row[0] || '',
+        todayDate: row[1] || '',
+        firstName: row[2] || '',
+        lastName: row[3] || '',
+        gender: row[4] || '',
+        nativeLanguage: row[5] || '',
+        countryOfOrigin: row[6] || '',
+        address: row[7] || '',
+        city: row[8] || '',
+        zipCode: row[9] || '',
+        county: row[10] || '',
+        telephone: row[11] || '',
+        email: row[12] || '',
+        birthday: row[13] || '',
+        emergencyContactName: row[14] || '',
+        emergencyContactPhone: row[15] || '',
+        attendsChurch: row[16] || '',
+        churchName: row[17] || ''
+      };
+    }).filter(student => student.firstName && student.lastName); // Only include students with names
+    
+    return ContentService
+      .createTextOutput(JSON.stringify({success: true, students: students}))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    console.error('Error getting registered students:', error);
+    return ContentService
+      .createTextOutput(JSON.stringify({success: false, error: error.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // Test function to verify the script works

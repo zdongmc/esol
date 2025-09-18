@@ -147,6 +147,17 @@ h1 {
     border-color: #dc3545;
 }
 
+.form-group input[readonly] {
+    background-color: #f8f9fa;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.form-group small {
+    margin-top: 5px;
+    display: block;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;

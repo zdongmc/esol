@@ -32,6 +32,9 @@ function logout() {
     document.getElementById('errorMessage').style.display = 'none';
 }
 
+// Global variable to store student data
+let studentsData = [];
+
 // Allow Enter key to submit password
 document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('staffPassword');
@@ -44,6 +47,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Focus on password field when page loads
     passwordInput.focus();
+    
+    // Load students when page loads
+    loadRegisteredStudents();
+    
+    // Handle student selection
+    const studentSelect = document.getElementById('studentSelect');
+    studentSelect.addEventListener('change', function() {
+        const selectedStudent = studentsData.find(student => 
+            student.firstName + ' ' + student.lastName === this.value
+        );
+        
+        if (selectedStudent) {
+            document.getElementById('studentFirstName').value = selectedStudent.firstName || '';
+            document.getElementById('studentLastName').value = selectedStudent.lastName || '';
+            document.getElementById('studentEmail').value = selectedStudent.email || '';
+            document.getElementById('studentPhone').value = selectedStudent.telephone || '';
+        } else {
+            // Clear fields if no selection
+            document.getElementById('studentFirstName').value = '';
+            document.getElementById('studentLastName').value = '';
+            document.getElementById('studentEmail').value = '';
+            document.getElementById('studentPhone').value = '';
+        }
+    });
     
     // Form submission handling
     const form = document.getElementById('classAssignmentForm');
@@ -162,6 +189,63 @@ async function submitClassAssignment(data) {
     }
 }
 
+// Function to load registered students
+async function loadRegisteredStudents() {
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyN7iPd_T6Zpl8DnfvNBfqwdfv4LdKMPhcdlHrP_X8gXnBrkkppOEJ7C43ZnNafubQd/exec';
+    const studentSelect = document.getElementById('studentSelect');
+    
+    try {
+        const response = await fetch(GOOGLE_SHEETS_URL + '?action=getStudents', {
+            method: 'GET',
+            mode: 'cors'
+        });
+        
+        if (response.ok) {
+            const result = await response.json();
+            
+            if (result.success && result.students) {
+                studentsData = result.students;
+                populateStudentDropdown();
+            } else {
+                throw new Error('Failed to load students');
+            }
+        } else {
+            throw new Error('Network error');
+        }
+    } catch (error) {
+        console.error('Error loading students:', error);
+        studentSelect.innerHTML = '<option value="">Error loading students - please refresh</option>';
+    }
+}
+
+// Function to populate the student dropdown
+function populateStudentDropdown() {
+    const studentSelect = document.getElementById('studentSelect');
+    
+    if (studentsData.length === 0) {
+        studentSelect.innerHTML = '<option value="">No registered students found</option>';
+        return;
+    }
+    
+    // Sort students alphabetically by last name, then first name
+    studentsData.sort((a, b) => {
+        const aName = (a.lastName || '') + ', ' + (a.firstName || '');
+        const bName = (b.lastName || '') + ', ' + (b.firstName || '');
+        return aName.localeCompare(bName);
+    });
+    
+    // Clear existing options
+    studentSelect.innerHTML = '<option value="">Select a student...</option>';
+    
+    // Add students to dropdown
+    studentsData.forEach(student => {
+        const option = document.createElement('option');
+        const fullName = student.firstName + ' ' + student.lastName;
+        option.value = fullName;
+        option.textContent = `${student.lastName}, ${student.firstName}${student.email ? ' (' + student.email + ')' : ''}`;
+        studentSelect.appendChild(option);
+    });
+}
 
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {
