@@ -62,10 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('classAssignmentForm');
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        console.log('Form submit triggered');
         
         if (!validateForm()) {
+            console.log('Form validation failed');
             return;
         }
+        
+        console.log('Form validation passed');
         
         const submitBtn = document.querySelector('.submit-btn');
         const successMessage = document.getElementById('successMessage');
@@ -108,31 +112,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function validateForm() {
     const requiredFields = document.querySelectorAll('[required]');
+    console.log('Found required fields:', requiredFields.length);
     let isValid = true;
     
     requiredFields.forEach(field => {
+        console.log('Checking field:', field.name, 'value:', field.value);
         if (!field.value.trim()) {
             field.style.borderColor = '#dc3545';
             isValid = false;
+            console.log('Field failed validation:', field.name);
         } else {
             field.style.borderColor = '#28a745';
         }
     });
     
-    // Validate email format if provided
-    const emailField = document.getElementById('studentEmail');
-    if (emailField.value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(emailField.value)) {
-            emailField.style.borderColor = '#dc3545';
-            isValid = false;
-        }
-    }
-    
     if (!isValid) {
         alert('Please fill in all required fields correctly.');
     }
     
+    console.log('Validation result:', isValid);
     return isValid;
 }
 
