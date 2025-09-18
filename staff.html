@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESOL Staff - Class Assignment</title>
+    <link rel="stylesheet" href="staff-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <img src="ESOL_logo_F.jpg" alt="ESOL Cedarbrook Community Church Logo" class="logo">
+            </div>
+            <h1>STAFF CLASS ASSIGNMENT</h1>
+        </header>
+
+        <!-- Password Protection Screen -->
+        <div id="passwordScreen" class="password-screen">
+            <div class="password-form">
+                <h2>Staff Access Required</h2>
+                <p>Please enter the staff password to access class assignments.</p>
+                <div class="form-group">
+                    <label for="staffPassword">Password:</label>
+                    <input type="password" id="staffPassword" placeholder="Enter staff password">
+                </div>
+                <button onclick="checkPassword()" class="login-btn">Access Staff Area</button>
+                <div id="passwordError" class="error-message" style="display: none;">
+                    Incorrect password. Please try again.
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Staff Form (hidden initially) -->
+        <div id="staffForm" class="staff-form" style="display: none;">
+            <form id="classAssignmentForm" class="assignment-form">
+                <div class="form-section">
+                    <h3>Student Information</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="studentFirstName">Student First Name:</label>
+                            <input type="text" id="studentFirstName" name="studentFirstName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentLastName">Student Last Name:</label>
+                            <input type="text" id="studentLastName" name="studentLastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentEmail">Student Email (for verification):</label>
+                        <input type="email" id="studentEmail" name="studentEmail">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Class Assignment</h3>
+                    
+                    <div class="form-group">
+                        <label for="classLevel">Class Level:</label>
+                        <select id="classLevel" name="classLevel" required>
+                            <option value="">Select Class Level</option>
+                            <option value="Beginner 1">Beginner 1</option>
+                            <option value="Beginner 2">Beginner 2</option>
+                            <option value="Intermediate 1">Intermediate 1</option>
+                            <option value="Intermediate 2">Intermediate 2</option>
+                            <option value="Advanced 1">Advanced 1</option>
+                            <option value="Advanced 2">Advanced 2</option>
+                            <option value="Conversation Practice">Conversation Practice</option>
+                            <option value="Writing Skills">Writing Skills</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="classDay">Class Day:</label>
+                            <select id="classDay" name="classDay" required>
+                                <option value="">Select Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="classTime">Class Time:</label>
+                            <select id="classTime" name="classTime" required>
+                                <option value="">Select Time</option>
+                                <option value="9:00 AM">9:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="1:00 PM">1:00 PM</option>
+                                <option value="2:00 PM">2:00 PM</option>
+                                <option value="3:00 PM">3:00 PM</option>
+                                <option value="6:00 PM">6:00 PM</option>
+                                <option value="7:00 PM">7:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instructor">Instructor:</label>
+                        <input type="text" id="instructor" name="instructor" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="classroom">Classroom/Location:</label>
+                        <input type="text" id="classroom" name="classroom" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Additional Information</h3>
+                    
+                    <div class="form-group">
+                        <label for="startDate">Class Start Date:</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes:</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Any additional notes about the assignment..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assignedBy">Assigned By (Staff Name):</label>
+                        <input type="text" id="assignedBy" name="assignedBy" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Assign Student to Class</button>
+                </div>
+            </form>
+
+            <div id="successMessage" class="success-message" style="display: none;">
+                <h3>Class Assignment Completed!</h3>
+                <p>Student has been successfully assigned to the class.</p>
+            </div>
+
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <h3>Assignment Error</h3>
+                <p>Please try again or contact system administrator.</p>
+            </div>
+
+            <div class="logout-section">
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="staff-script.js"></script>
+</body>
+</html>
