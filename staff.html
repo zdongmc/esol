@@ -56,20 +56,65 @@
                 </div>
 
                 <div class="form-section">
+                    <h3>Assessment Results</h3>
+                    
+                    <div class="form-group">
+                        <label for="interviewScore">Interview Score:</label>
+                        <input type="number" id="interviewScore" name="interviewScore" min="0" max="100" placeholder="Enter score (0-100)">
+                    </div>
+
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Alphabet Reading:</legend>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="alphabetReading" value="Read all correctly" required>
+                                    <span>Read all correctly</span>
+                                </label>
+                                
+                                <label class="radio-option">
+                                    <input type="radio" name="alphabetReading" value="Could not read any" required>
+                                    <span>Could not read any</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Paragraph Reading:</legend>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="paragraphReading" value="Read well" required>
+                                    <span>Read well</span>
+                                </label>
+                                
+                                <label class="radio-option">
+                                    <input type="radio" name="paragraphReading" value="Read haltingly" required>
+                                    <span>Read haltingly</span>
+                                </label>
+                                
+                                <label class="radio-option">
+                                    <input type="radio" name="paragraphReading" value="Couldn't read" required>
+                                    <span>Couldn't read</span>
+                                </label>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="form-section">
                     <h3>Class Assignment</h3>
                     
                     <div class="form-group">
                         <label for="classLevel">Class Level:</label>
                         <select id="classLevel" name="classLevel" required>
                             <option value="">Select Class Level</option>
-                            <option value="Beginner 1">Beginner 1</option>
-                            <option value="Beginner 2">Beginner 2</option>
-                            <option value="Intermediate 1">Intermediate 1</option>
-                            <option value="Intermediate 2">Intermediate 2</option>
-                            <option value="Advanced 1">Advanced 1</option>
-                            <option value="Advanced 2">Advanced 2</option>
-                            <option value="Conversation Practice">Conversation Practice</option>
-                            <option value="Writing Skills">Writing Skills</option>
+                            <option value="Foundations">Foundations</option>
+                            <option value="Level 1">Level 1</option>
+                            <option value="Level 2">Level 2</option>
+                            <option value="Level 3">Level 3</option>
+                            <option value="Advanced Discussion">Advanced Discussion</option>
                         </select>
                     </div>
 

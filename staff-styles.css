@@ -162,6 +162,58 @@ textarea {
     min-height: 80px;
 }
 
+/* Radio Button Styles */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: white;
+    border-radius: 6px;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 45px;
+    box-sizing: border-box;
+}
+
+.radio-option:hover {
+    background-color: #f8f9fa;
+    border-color: #dc3545;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    margin-left: 0;
+    transform: scale(1.2);
+    flex-shrink: 0;
+}
+
+.radio-option span {
+    font-size: 15px;
+    color: #333;
+}
+
+fieldset {
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 0;
+}
+
+legend {
+    font-weight: bold;
+    color: #555;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
 .submit-btn {
     background-color: #28a745;
     color: white;
