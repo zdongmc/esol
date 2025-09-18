@@ -62,14 +62,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('classAssignmentForm');
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        console.log('Form submit triggered');
         
         if (!validateForm()) {
-            console.log('Form validation failed');
             return;
         }
-        
-        console.log('Form validation passed');
         
         const submitBtn = document.querySelector('.submit-btn');
         const successMessage = document.getElementById('successMessage');
@@ -112,25 +108,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function validateForm() {
     const requiredFields = document.querySelectorAll('[required]');
-    console.log('Found required fields:', requiredFields.length);
     let isValid = true;
     
     requiredFields.forEach(field => {
-        console.log('Checking field:', field.name, 'value:', field.value);
         if (!field.value.trim()) {
             field.style.borderColor = '#dc3545';
             isValid = false;
-            console.log('Field failed validation:', field.name);
         } else {
             field.style.borderColor = '#28a745';
         }
     });
     
-    if (!isValid) {
-        alert('Please fill in all required fields correctly.');
+    // Check that a student is selected
+    const studentSelect = document.getElementById('studentSelect');
+    if (!studentSelect.value) {
+        studentSelect.style.borderColor = '#dc3545';
+        isValid = false;
+    } else {
+        studentSelect.style.borderColor = '#28a745';
     }
     
-    console.log('Validation result:', isValid);
+    if (!isValid) {
+        alert('Please select a student and fill in all required fields correctly.');
+    }
+    
     return isValid;
 }
 
