@@ -54,22 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle student selection
     const studentSelect = document.getElementById('studentSelect');
     studentSelect.addEventListener('change', function() {
-        const selectedStudent = studentsData.find(student => 
-            student.firstName + ' ' + student.lastName === this.value
-        );
-        
-        if (selectedStudent) {
-            document.getElementById('studentFirstName').value = selectedStudent.firstName || '';
-            document.getElementById('studentLastName').value = selectedStudent.lastName || '';
-            document.getElementById('studentEmail').value = selectedStudent.email || '';
-            document.getElementById('studentPhone').value = selectedStudent.telephone || '';
-        } else {
-            // Clear fields if no selection
-            document.getElementById('studentFirstName').value = '';
-            document.getElementById('studentLastName').value = '';
-            document.getElementById('studentEmail').value = '';
-            document.getElementById('studentPhone').value = '';
-        }
+        // Student information is now handled automatically through the dropdown selection
+        // No need to populate separate fields since they were removed
     });
     
     // Form submission handling
@@ -156,6 +142,22 @@ function collectFormData() {
     
     for (let [key, value] of formData.entries()) {
         data[key] = value;
+    }
+    
+    // Get selected student information from the dropdown
+    const studentSelect = document.getElementById('studentSelect');
+    const selectedStudentName = studentSelect.value;
+    
+    if (selectedStudentName) {
+        const selectedStudent = studentsData.find(student => 
+            student.firstName + ' ' + student.lastName === selectedStudentName
+        );
+        
+        if (selectedStudent) {
+            data.studentFirstName = selectedStudent.firstName;
+            data.studentLastName = selectedStudent.lastName;
+            data.studentEmail = selectedStudent.email;
+        }
     }
     
     // Add assignment timestamp
