@@ -243,7 +243,38 @@ body {
     
     .radio-group {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .radio-group label {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        width: 100%;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    .radio-group label:hover {
+        background-color: #e9ecef;
+    }
+    
+    .radio-group input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+    }
+    
+    fieldset {
+        padding: 20px;
+    }
+    
+    legend {
+        font-size: 16px;
+        padding: 0 15px;
     }
     
     h1 {
