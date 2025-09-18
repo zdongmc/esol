@@ -2,11 +2,6 @@
 // Form handling and validation
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('esolForm');
-    const todaysDateInput = document.getElementById('todaysDate');
-    
-    // Set today's date as default
-    const today = new Date().toISOString().split('T')[0];
-    todaysDateInput.value = today;
     
     // Phone number formatting
     function formatPhoneNumber(input) {
@@ -52,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (success) {
                 successMessage.style.display = 'block';
                 form.reset();
-                todaysDateInput.value = today;
                 
                 // Scroll to success message
                 successMessage.scrollIntoView({ behavior: 'smooth' });
@@ -154,13 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Utility function to handle form reset
 function resetForm() {
     const form = document.getElementById('esolForm');
-    const todaysDateInput = document.getElementById('todaysDate');
     
     form.reset();
-    
-    // Reset today's date
-    const today = new Date().toISOString().split('T')[0];
-    todaysDateInput.value = today;
     
     // Reset field borders
     const inputs = form.querySelectorAll('input');
