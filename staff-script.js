@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Show loading state
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Assigning Student...';
+        submitBtn.textContent = 'Submitting Assessment...';
         form.classList.add('loading');
         
         // Hide previous messages
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } finally {
             // Reset button state
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Assign Student to Class';
+            submitBtn.textContent = 'Submit Assessment & Class Level';
             form.classList.remove('loading');
         }
     });
@@ -162,12 +162,6 @@ async function submitClassAssignment(data) {
     }
 }
 
-// Auto-fill today's date for start date
-document.addEventListener('DOMContentLoaded', function() {
-    const startDateInput = document.getElementById('startDate');
-    const today = new Date().toISOString().split('T')[0];
-    startDateInput.value = today;
-});
 
 // Export for testing
 if (typeof module !== 'undefined' && module.exports) {

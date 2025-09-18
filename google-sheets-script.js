@@ -104,13 +104,7 @@ function setupClassAssignmentHeaders(sheet) {
     'Alphabet Reading',
     'Paragraph Reading',
     'Class Level',
-    'Class Day',
-    'Class Time',
-    'Instructor',
-    'Classroom',
-    'Start Date',
-    'Notes',
-    'Assigned By'
+    'Notes'
   ];
   
   // Add headers to the first row
@@ -218,13 +212,7 @@ function addClassAssignmentToSheet(sheet, data) {
     data.alphabetReading || '',
     data.paragraphReading || '',
     data.classLevel || '',
-    data.classDay || '',
-    data.classTime || '',
-    data.instructor || '',
-    data.classroom || '',
-    data.startDate || '',
-    data.notes || '',
-    data.assignedBy || ''
+    data.notes || ''
   ];
   
   const nextRow = sheet.getLastRow() + 1;
