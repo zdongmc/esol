@@ -166,7 +166,7 @@ function collectFormData() {
 
 async function submitClassAssignment(data) {
     // This will connect to your Google Sheets Web App URL
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyN7iPd_T6Zpl8DnfvNBfqwdfv4LdKMPhcdlHrP_X8gXnBrkkppOEJ7C43ZnNafubQd/exec';
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxOIUstNipURSNSN3LRJ0fyjA783COwlP6cWUiKznaoKAvoP5hYF_bjD1h-Uqr9I-Y/exec';
     
     try {
         const response = await fetch(GOOGLE_SHEETS_URL, {
@@ -191,30 +191,83 @@ async function submitClassAssignment(data) {
 
 // Function to load registered students
 async function loadRegisteredStudents() {
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyN7iPd_T6Zpl8DnfvNBfqwdfv4LdKMPhcdlHrP_X8gXnBrkkppOEJ7C43ZnNafubQd/exec';
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxOIUstNipURSNSN3LRJ0fyjA783COwlP6cWUiKznaoKAvoP5hYF_bjD1h-Uqr9I-Y/exec';
+    const studentSelect = document.getElementById('studentSelect');
+    
+    studentSelect.innerHTML = '<option value="">Loading registered students...</option>';
+    
+    try {
+        // Try using JSONP approach instead of fetch
+        const script = document.createElement('script');
+        const callbackName = 'studentsCallback_' + Date.now();
+        
+        // Create global callback function
+        window[callbackName] = function(data) {
+            if (data && data.success && data.students && Array.isArray(data.students)) {
+                studentsData = data.students;
+                populateStudentDropdown();
+            } else {
+                studentSelect.innerHTML = '<option value="">No students found in registration</option>';
+            }
+            
+            // Clean up
+            if (document.head.contains(script)) {
+                document.head.removeChild(script);
+            }
+            delete window[callbackName];
+        };
+        
+        // Use JSONP approach
+        script.src = GOOGLE_SHEETS_URL + '?action=getStudents&callback=' + callbackName;
+        
+        script.onerror = function() {
+            studentSelect.innerHTML = '<option value="">Error loading students - check connection</option>';
+            if (document.head.contains(script)) {
+                document.head.removeChild(script);
+            }
+            delete window[callbackName];
+        };
+        
+        document.head.appendChild(script);
+        
+        // Fallback timeout
+        setTimeout(() => {
+            if (document.head.contains(script)) {
+                document.head.removeChild(script);
+                delete window[callbackName];
+                tryDirectFetch();
+            }
+        }, 10000);
+        
+    } catch (error) {
+        console.error('Error in loadRegisteredStudents:', error);
+        studentSelect.innerHTML = '<option value="">Error loading students - please refresh</option>';
+    }
+}
+
+// Fallback function to try direct fetch
+async function tryDirectFetch() {
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxOIUstNipURSNSN3LRJ0fyjA783COwlP6cWUiKznaoKAvoP5hYF_bjD1h-Uqr9I-Y/exec';
     const studentSelect = document.getElementById('studentSelect');
     
     try {
-        const response = await fetch(GOOGLE_SHEETS_URL + '?action=getStudents', {
-            method: 'GET',
-            mode: 'cors'
-        });
+        const response = await fetch(GOOGLE_SHEETS_URL + '?action=getStudents');
         
         if (response.ok) {
             const result = await response.json();
             
-            if (result.success && result.students) {
+            if (result.success && result.students && Array.isArray(result.students)) {
                 studentsData = result.students;
                 populateStudentDropdown();
             } else {
-                throw new Error('Failed to load students');
+                studentSelect.innerHTML = '<option value="">No students found in registration</option>';
             }
         } else {
-            throw new Error('Network error');
+            studentSelect.innerHTML = '<option value="">Error: Could not connect to database</option>';
         }
     } catch (error) {
-        console.error('Error loading students:', error);
-        studentSelect.innerHTML = '<option value="">Error loading students - please refresh</option>';
+        console.error('Direct fetch error:', error);
+        studentSelect.innerHTML = '<option value="">Network error - please check connection</option>';
     }
 }
 

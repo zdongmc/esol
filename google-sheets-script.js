@@ -165,9 +165,20 @@ function addRegistrationDataToSheet(sheet, data) {
 function doGet(e) {
   try {
     const action = e.parameter.action;
+    const callback = e.parameter.callback;
     
     if (action === 'getStudents') {
-      return getRegisteredStudents();
+      const result = getRegisteredStudents();
+      
+      // If JSONP callback is provided, wrap the response
+      if (callback) {
+        const jsonData = result.getContent();
+        return ContentService
+          .createTextOutput(callback + '(' + jsonData + ');')
+          .setMimeType(ContentService.MimeType.JAVASCRIPT);
+      } else {
+        return result;
+      }
     } else {
       // Handle default GET requests (for testing)
       return ContentService
@@ -176,9 +187,19 @@ function doGet(e) {
     }
   } catch (error) {
     console.error('Error in doGet:', error);
-    return ContentService
-      .createTextOutput(JSON.stringify({success: false, error: error.toString()}))
-      .setMimeType(ContentService.MimeType.JSON);
+    
+    const errorResponse = JSON.stringify({success: false, error: error.toString()});
+    const callback = e.parameter.callback;
+    
+    if (callback) {
+      return ContentService
+        .createTextOutput(callback + '(' + errorResponse + ');')
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    } else {
+      return ContentService
+        .createTextOutput(errorResponse)
+        .setMimeType(ContentService.MimeType.JSON);
+    }
   }
 }
 
@@ -190,6 +211,7 @@ function getRegisteredStudents() {
     
     // Get all data from the sheet
     const lastRow = sheet.getLastRow();
+    const lastColumn = sheet.getLastColumn();
     
     if (lastRow <= 1) {
       // No data (only headers or empty sheet)
@@ -199,7 +221,7 @@ function getRegisteredStudents() {
     }
     
     // Get data starting from row 2 (skip headers)
-    const data = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+    const data = sheet.getRange(2, 1, lastRow - 1, lastColumn).getValues();
     
     // Convert data to student objects
     const students = data.map(row => {

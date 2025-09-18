@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function submitToGoogleSheets(data) {
         // Google Sheets Web App URL
-        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyN7iPd_T6Zpl8DnfvNBfqwdfv4LdKMPhcdlHrP_X8gXnBrkkppOEJ7C43ZnNafubQd/exec';
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxOIUstNipURSNSN3LRJ0fyjA783COwlP6cWUiKznaoKAvoP5hYF_bjD1h-Uqr9I-Y/exec';
         
         try {
             const response = await fetch(GOOGLE_SHEETS_URL, {
