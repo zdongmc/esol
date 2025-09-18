@@ -242,41 +242,40 @@ body {
     }
     
     .radio-group {
+        display: flex;
         flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
+        gap: 12px;
     }
     
-    .radio-group label {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
+    .radio-option {
+        display: flex;
+        align-items: center;
         padding: 15px;
         background-color: #f8f9fa;
         border-radius: 8px;
         border: 2px solid #ddd;
-        width: 100%;
         cursor: pointer;
         transition: all 0.2s ease;
-        font-weight: normal;
-        margin-bottom: 0;
         min-height: 50px;
         box-sizing: border-box;
-        text-align: left;
     }
     
-    .radio-group label:hover {
+    .radio-option:hover {
         background-color: #e9ecef;
         border-color: #007bff;
     }
     
-    .radio-group input[type="radio"] {
+    .radio-option input[type="radio"] {
         margin: 0 12px 0 0 !important;
         transform: scale(1.4);
         flex-shrink: 0;
-        position: relative;
-        top: 0;
+    }
+    
+    .radio-option label {
+        margin: 0 !important;
+        font-weight: normal;
+        cursor: pointer;
+        flex: 1;
     }
     
     fieldset {
